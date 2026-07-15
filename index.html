@@ -3,301 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>えひめアグリファーム 直売所</title>
+    <title>情熱の有機野菜直売所</title>
     <style>
+        /* === ベーススタイル === */
         :root {
-            --primary-color: #2e7d32;
-            --secondary-color: #ff9800;
-            --bg-color: #f1f8e9;
+            --primary-red: #d32f2f;
+            --accent-red: #ff1744;
+            --dark-red: #9a0007;
+            --bg-color: #fff5f5;
             --text-color: #333;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
+            overflow-x: hidden;
         }
 
+        /* === ヒーローセクション（トップ） === */
         header {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
             color: white;
-            padding: 2rem 1rem;
+            padding: 60px 20px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        header h1 {
-            margin: 0;
+        .catchphrase {
             font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        header p {
-            margin-top: 0.5rem;
-            opacity: 0.9;
+        .sub-catchphrase {
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        main {
+        .description {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffeb3b;
         }
 
-        /* 商品紹介セクション */
-        .section-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+        /* === 商品一覧セクション === */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .products-grid {
+        h2 {
+            color: var(--dark-red);
+            border-bottom: 3px solid var(--accent-red);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
         }
 
         .product-card {
             background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .product-card h3 {
-            margin-top: 0;
-            color: var(--primary-color);
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-red);
+            box-shadow: 0 8px 15px rgba(211, 47, 47, 0.2);
         }
 
-        .price {
-            font-size: 1.25rem;
+        .product-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
             font-weight: bold;
-            color: var(--secondary-color);
+            color: var(--primary-red);
         }
 
-        /* コメントセクション */
+        /* === コメントセクション === */
         .comment-section {
             background: white;
-            padding: 2rem;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .comment-form input,
-        .comment-form textarea {
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            box-sizing: border-box;
             font-size: 1rem;
-            font-family: inherit;
+            transition: border-color 0.3s;
         }
 
-        .comment-form button {
-            background-color: var(--primary-color);
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+
+        /* 押したくなるボタンのデザイン */
+        .submit-btn {
+            background: linear-gradient(to bottom, #ff5252, #d32f2f);
             color: white;
             border: none;
-            padding: 0.75rem;
-            border-radius: 4px;
-            font-size: 1rem;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            width: 100%;
+            box-shadow: 0 6px 0 var(--dark-red), 0 10px 15px rgba(0,0,0,0.2);
+            transition: all 0.1s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .comment-form button:hover {
-            background-color: #1b5e20;
+        .submit-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 0 0 var(--dark-red), 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .comment-form button:disabled {
-            background-color: #9e9e9e;
-            cursor: not-allowed;
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
         }
 
-        .comments-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .comment-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
         }
 
         .comment-item {
+            border-left: 4px solid var(--primary-red);
+            padding: 15px;
             background: #f9f9f9;
-            padding: 1rem;
-            border-radius: 4px;
-            border-left: 4px solid var(--primary-color);
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
         }
 
-        .comment-item h4 {
-            margin: 0 0 0.5rem 0;
+        .comment-name {
+            font-weight: bold;
+            color: var(--dark-red);
+            margin-bottom: 5px;
             font-size: 0.9rem;
-            color: #666;
         }
 
-        .comment-item p {
+        .comment-text {
             margin: 0;
             line-height: 1.5;
+            white-space: pre-wrap;
         }
-        
-        .loading {
-            text-align: center;
-            color: #666;
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        /* === シャキーン！アニメーション（JavaScriptで制御） === */
+        .shakin-hidden {
+            opacity: 0;
+            transform: scale(0.8) skewX(-20deg) translateX(-50px);
+        }
+
+        .shakin-active {
+            opacity: 1;
+            transform: scale(1) skewX(0) translateX(0);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>えひめアグリファーム 直売所</h1>
-        <p>農園から食卓へ、新鮮な野菜と果物をお届けします！</p>
+        <div class="shakin-target">
+            <h1>情熱直売所</h1>
+            <p class="catchphrase">人間は食べ物でできている！</p>
+            <p class="sub-catchphrase">気合いは全てを凌駕する！</p>
+            <div class="description">
+                こだわり抜いた栽培方法で育てた自慢の野菜です。<br>
+                完全無農薬、無化学肥料、有機栽培。<br>
+                その分値段は高いですが、自信を持ってお勧めできます！
+            </div>
+        </div>
     </header>
 
-    <main>
-        <!-- 商品紹介 -->
-        <h2 class="section-title">本日のおすすめ農産物</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <h3>温州みかん</h3>
-                <p>太陽の光をたっぷり浴びた、甘みと酸味のバランスが絶妙なみかんです。</p>
-                <p class="price">1袋 500円</p>
-            </div>
-            <div class="product-card">
-                <h3>完熟トマト</h3>
-                <p>センサー管理されたハウスで大切に育てた、甘みが強いフルーツトマトです。</p>
-                <p class="price">1パック 350円</p>
-            </div>
-            <div class="product-card">
-                <h3>朝採れきゅうり</h3>
-                <p>今朝収穫したばかりのシャキシャキ食感。サラダや漬物にぴったりです。</p>
-                <p class="price">3本 200円</p>
-            </div>
+    <div class="container">
+        <h2>🔥 魂の野菜ラインナップ</h2>
+        <div class="product-grid" id="product-grid">
+            <!-- JavaScriptで商品を生成 -->
         </div>
 
-        <!-- 応援コメント掲示板 -->
         <div class="comment-section">
-            <h2 class="section-title">農園への応援コメント</h2>
+            <h2>💬 お客様の声（応援メッセージ待ってます！）</h2>
             
-            <form id="comment-form" class="comment-form">
-                <input type="text" id="comment-name" placeholder="お名前（ニックネーム可）" required>
-                <textarea id="comment-text" rows="3" placeholder="美味しかった野菜の感想や応援メッセージをお願いします！" required></textarea>
-                <button type="submit" id="submit-btn">コメントを送信</button>
+            <form id="comment-form">
+                <div class="form-group">
+                    <input type="text" id="name-input" placeholder="あなたのお名前" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="text-input" rows="4" placeholder="野菜への熱い思いや感想を書いてください！" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submit-btn">メッセージを送信する！！</button>
             </form>
 
-            <div id="comments-list" class="comments-list">
-                <p class="loading">コメントを読み込んでいます...</p>
-            </div>
+            <ul class="comment-list" id="comment-list">
+                <!-- コメントがここに追加されます -->
+                <li style="text-align: center; color: #888;">読み込み中...</li>
+            </ul>
         </div>
-    </main>
+    </div>
 
-    <!-- Firebase v10 SDK の読み込みと設定 -->
+    <!-- Firebase JS SDK (v10) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // ここに自分のconfigを貼る
+        // ==========================================
+        // Firebase 初期化
+        // ==========================================
         const firebaseConfig = {
-          apiKey: "AIzaSyC9gRBdcVr2YxOZwnUrtv7lElP2vFQRR2M",
-          authDomain: "sanchoku-79631.firebaseapp.com",
-          projectId: "sanchoku-79631",
-          storageBucket: "sanchoku-79631.firebasestorage.app",
-          messagingSenderId: "815822134191",
-          appId: "1:815822134191:web:707f938048dfb511a0ad5a"
+            apiKey: "AIzaSyC9gRBdcVr2YxOZwnUrtv7lElP2vFQRR2M",
+            authDomain: "sanchoku-79631.firebaseapp.com",
+            projectId: "sanchoku-79631",
+            storageBucket: "sanchoku-79631.firebasestorage.app",
+            messagingSenderId: "815822134191",
+            appId: "1:815822134191:web:707f938048dfb511a0ad5a"
         };
 
-        // Firebase初期化
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // configが空でない場合のみFirebaseを初期化する簡易チェック
+        let db = null;
+        if (Object.keys(firebaseConfig).length > 0) {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+        }
 
-        // DOM要素の取得
+        // ==========================================
+        // UI・アニメーションの処理
+        // ==========================================
+        
+        // 商品データ
+        const products = [
+            { name: "トマト", icon: "🍅" },
+            { name: "ミニトマト", icon: "🍅" },
+            { name: "ナス", icon: "🍆" },
+            { name: "オクラ", icon: "🌿" },
+            { name: "小玉スイカ", icon: "🍉" },
+            { name: "メロン", icon: "🍈" },
+            { name: "ホウレンソウ", icon: "🥬" },
+            { name: "ダイコン", icon: "🥕" } // 代用アイコン
+        ];
+
+        const productGrid = document.getElementById('product-grid');
+
+        // 商品カードを生成
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card shakin-target';
+            
+            const icon = document.createElement('div');
+            icon.className = 'product-icon';
+            icon.textContent = product.icon;
+            
+            const name = document.createElement('div');
+            name.className = 'product-name';
+            name.textContent = product.name;
+
+            card.appendChild(icon);
+            card.appendChild(name);
+            productGrid.appendChild(card);
+        });
+
+        // 「シャキーン！」アニメーション用のIntersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // 少しずつ遅延させてシャキーンと表示
+                    setTimeout(() => {
+                        entry.target.classList.remove('shakin-hidden');
+                        entry.target.classList.add('shakin-active');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // 対象要素に初期クラスを付与して監視開始
+        document.querySelectorAll('.shakin-target').forEach(el => {
+            el.classList.add('shakin-hidden');
+            observer.observe(el);
+        });
+
+        // ==========================================
+        // Firestore コメント機能の処理
+        // ==========================================
         const commentForm = document.getElementById('comment-form');
-        const nameInput = document.getElementById('comment-name');
-        const textInput = document.getElementById('comment-text');
-        const commentsList = document.getElementById('comments-list');
+        const nameInput = document.getElementById('name-input');
+        const textInput = document.getElementById('text-input');
+        const commentList = document.getElementById('comment-list');
         const submitBtn = document.getElementById('submit-btn');
 
-        // コメント一覧を読み込んで表示する関数
-        async function loadComments() {
+        // コメント一覧を取得して表示する関数
+        async function fetchComments() {
+            if (!db) {
+                commentList.innerHTML = '<li style="text-align: center; color: red;">Firebaseの設定(config)が追加されていません。</li>';
+                return;
+            }
+
             try {
-                // collection(db, "comments") から getDocs + orderBy("createdAt", "desc") で取得
+                // createdAtの降順（新しい順）で取得
                 const q = query(collection(db, "comments"), orderBy("createdAt", "desc"));
                 const querySnapshot = await getDocs(q);
                 
-                // 表示領域をクリア
-                commentsList.innerHTML = '';
-
+                commentList.innerHTML = ''; // リストをクリア
+                
                 if (querySnapshot.empty) {
-                    commentsList.innerHTML = '<p class="loading">まだコメントはありません。最初のコメントをお待ちしています！</p>';
+                    commentList.innerHTML = '<li style="text-align: center; color: #888;">まだコメントはありません。一番乗りを目指そう！</li>';
                     return;
                 }
 
-                // 取得したコメントをDOMに追加
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     
-                    const commentItem = document.createElement('div');
-                    commentItem.className = 'comment-item';
+                    const li = document.createElement('li');
+                    li.className = 'comment-item shakin-target shakin-hidden';
+                    
+                    const nameDiv = document.createElement('div');
+                    nameDiv.className = 'comment-name';
+                    // セキュリティ対策：textContentを使用してサニタイズ
+                    nameDiv.textContent = `${data.name} さんの気合い`; 
+                    
+                    const textP = document.createElement('p');
+                    textP.className = 'comment-text';
+                    // セキュリティ対策：textContentを使用
+                    textP.textContent = data.text;
+                    
+                    const dateDiv = document.createElement('div');
+                    dateDiv.className = 'comment-date';
+                    const date = new Date(data.createdAt);
+                    dateDiv.textContent = date.toLocaleString('ja-JP');
 
-                    const nameEl = document.createElement('h4');
-                    // XSS対策として textContent を使用
-                    nameEl.textContent = data.name + " さん";
-
-                    const textEl = document.createElement('p');
-                    // XSS対策として textContent を使用
-                    textEl.textContent = data.text;
-
-                    commentItem.appendChild(nameEl);
-                    commentItem.appendChild(textEl);
-                    commentsList.appendChild(commentItem);
+                    li.appendChild(nameDiv);
+                    li.appendChild(textP);
+                    li.appendChild(dateDiv);
+                    
+                    commentList.appendChild(li);
+                    
+                    // 追加した要素もアニメーション対象にする
+                    observer.observe(li);
                 });
             } catch (error) {
-                console.error("コメントの取得に失敗しました:", error);
-                commentsList.innerHTML = '<p class="loading" style="color: red;">エラーが発生しました。Firebaseの設定（firebaseConfig）やFirestoreのセキュリティルールを確認してください。</p>';
+                console.error("コメント取得エラー:", error);
+                commentList.innerHTML = '<li style="text-align: center; color: red;">コメントの取得に失敗しました。Firestoreのルール設定等を確認してください。</li>';
             }
         }
 
-        // フォーム送信時の処理
+        // コメント送信処理
         commentForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // 画面遷移を防ぐ
+            e.preventDefault();
             
-            const nameVal = nameInput.value.trim();
-            const textVal = textInput.value.trim();
-            
-            if (!nameVal || !textVal) return;
+            if (!db) {
+                alert("Firebaseが設定されていません。コード内の config を設定してください。");
+                return;
+            }
 
-            // 送信中はボタンを無効化
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+            
+            if (!name || !text) return;
+
+            // ボタンを一時的に無効化
             submitBtn.disabled = true;
-            submitBtn.textContent = '送信中...';
+            submitBtn.textContent = "送信中...🔥";
 
             try {
-                // collection(db, "comments") に addDoc で保存
+                // addDoc で comments コレクションに保存
+                // orderByを確実に機能させるため、クライアントの現在時刻を数値(ミリ秒)で保存
                 await addDoc(collection(db, "comments"), {
-                    name: nameVal,
-                    text: textVal,
-                    createdAt: serverTimestamp()
+                    name: name,
+                    text: text,
+                    createdAt: Date.now() 
                 });
-
-                // フォームをクリアして一覧を再読み込み
-                nameInput.value = '';
-                textInput.value = '';
-                await loadComments();
+                
+                // フォームをリセット
+                commentForm.reset();
+                
+                // コメント一覧を再取得して最新を表示
+                await fetchComments();
             } catch (error) {
-                console.error("コメントの保存に失敗しました:", error);
-                alert("送信に失敗しました。Firebaseの設定やセキュリティルールを確認してください。");
+                console.error("コメント保存エラー:", error);
+                alert("送信に失敗しました。");
             } finally {
                 // ボタンを元に戻す
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'コメントを送信';
+                submitBtn.textContent = "メッセージを送信する！！";
             }
         });
 
-        // ページ読み込み時にコメント一覧を取得
-        loadComments();
+        // 初回読み込み時にコメントを取得
+        fetchComments();
     </script>
 </body>
 </html>
